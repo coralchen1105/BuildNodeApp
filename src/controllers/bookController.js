@@ -22,9 +22,15 @@ var bookController = function(bookService, nav, BookDB) {
   var getBookIdFromService = function(req, res) {
     // MARK!!!!!!!! finally get api data from callback function
     // TODO: cleanup data
-    bookService().getBookById(function(data) {
-      parser.parseString(data, function(err, result) {
-        console.log(inspect(result.GoodreadsResponse.book[0].id, false, null));
+    bookService().getBookById(function(result) {
+      console.log(result.GoodreadsResponse.book[0].id);
+      console.log(result.GoodreadsResponse.book[0].title);
+      console.log(result.GoodreadsResponse.book[0].description);
+
+      res.render("singlePostView", {
+        title: "singlePost",
+        nav: nav,
+        book: result.GoodreadsResponse.book[0]
       });
     });
   };
